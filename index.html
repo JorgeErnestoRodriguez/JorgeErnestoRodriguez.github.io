@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jorge Ernesto Rodríguez | Tech Leadership Consultant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy:        #0d1b2a;
+    --navy-mid:    #162032;
+    --steel:       #2c4a6e;
+    --accent:      #1a6fa8;
+    --accent-dark: #145a8c;
+    --accent-soft: #e8f2fa;
+    --gray-dark:   #2a3a4a;
+    --gray-mid:    #5a6e82;
+    --gray-light:  #8fa3b8;
+    --border:      #d4e2ee;
+    --bg:          #f5f8fb;
+    --bg-alt:      #eef3f8;
+    --white:       #ffffff;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--gray-dark);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.1rem 4rem;
+    background: rgba(245,248,251,0.92);
+    backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--border);
+    transition: all 0.3s ease;
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; font-weight: 600;
+    color: var(--navy); letter-spacing: 0.05em;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.8rem; color: var(--gray-mid);
+    text-decoration: none; letter-spacing: 0.12em;
+    text-transform: uppercase; transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  /* ── HERO ── */
+  #hero {
+    min-height: 100vh;
+    display: flex; align-items: center;
+    position: relative; overflow: hidden;
+    padding: 0 4rem;
+    background: var(--white);
+  }
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 70% 60% at 75% 50%, rgba(26,111,168,0.06) 0%, transparent 70%),
+      radial-gradient(ellipse 40% 40% at 15% 80%, rgba(26,111,168,0.04) 0%, transparent 60%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(var(--border) 1px, transparent 1px),
+      linear-gradient(90deg, var(--border) 1px, transparent 1px);
+    background-size: 60px 60px;
+    opacity: 0.5;
+    mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, black 20%, transparent 80%);
+  }
+  .hero-content {
+    position: relative; z-index: 1;
+    max-width: 680px;
+  }
+  .hero-label {
+    font-size: 0.72rem; letter-spacing: 0.28em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 1.5rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .hero-label::before {
+    content: ''; display: block;
+    width: 36px; height: 1px; background: var(--accent);
+  }
+  h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 6vw, 5.2rem);
+    font-weight: 300; line-height: 1.05;
+    color: var(--navy); margin-bottom: 1.5rem;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+  .hero-tagline {
+    font-size: 1.05rem; color: var(--gray-mid);
+    line-height: 1.75; max-width: 500px;
+    margin-bottom: 3rem; font-weight: 300;
+  }
+  .hero-cta { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+  .btn-primary {
+    padding: 0.9rem 2.2rem; background: var(--accent);
+    color: var(--white); text-decoration: none;
+    font-size: 0.82rem; letter-spacing: 0.1em;
+    text-transform: uppercase; font-weight: 500;
+    border: 1px solid var(--accent); transition: all 0.3s ease;
+  }
+  .btn-primary:hover {
+    background: var(--accent-dark); border-color: var(--accent-dark);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(26,111,168,0.2);
+  }
+  .btn-secondary {
+    padding: 0.9rem 2.2rem; background: transparent;
+    color: var(--gray-mid); text-decoration: none;
+    font-size: 0.82rem; letter-spacing: 0.1em;
+    text-transform: uppercase; font-weight: 500;
+    border: 1px solid var(--border); transition: all 0.3s ease;
+  }
+  .btn-secondary:hover {
+    border-color: var(--accent); color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .hero-deco {
+    position: absolute; right: 5rem; top: 50%;
+    transform: translateY(-50%);
+    width: 360px; height: 360px;
+    border: 1px solid rgba(26,111,168,0.15);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    animation: rotate 45s linear infinite;
+  }
+  .hero-deco::before {
+    content: ''; position: absolute;
+    width: 260px; height: 260px;
+    border: 1px solid rgba(26,111,168,0.09);
+    border-radius: 50%;
+  }
+  .hero-deco::after {
+    content: ''; position: absolute;
+    width: 160px; height: 160px;
+    border: 1px solid rgba(26,111,168,0.06);
+    border-radius: 50%;
+  }
+  .hero-stats {
+    position: absolute; right: 4rem; bottom: 4rem;
+    display: flex; gap: 3rem;
+  }
+  .stat { text-align: center; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.4rem; font-weight: 600;
+    color: var(--accent); line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.68rem; color: var(--gray-light);
+    letter-spacing: 0.1em; text-transform: uppercase;
+    margin-top: 0.3rem;
+  }
+
+  /* ── SECTION COMMONS ── */
+  section { padding: 6rem 4rem; }
+  .section-label {
+    font-size: 0.7rem; letter-spacing: 0.25em;
+    text-transform: uppercase; color: var(--accent);
+    margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 1rem;
+  }
+  .section-label::before {
+    content: ''; display: block;
+    width: 28px; height: 1px; background: var(--accent);
+  }
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 300; color: var(--navy);
+    line-height: 1.15; margin-bottom: 1rem;
+  }
+  h2 em { font-style: italic; color: var(--accent); }
+
+  /* ── SERVICES ── */
+  #services {
+    background: var(--bg-alt);
+    position: relative; overflow: hidden;
+  }
+  #services::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--accent), transparent);
+    opacity: 0.3;
+  }
+  .services-header { max-width: 480px; margin-bottom: 4rem; }
+  .services-header p { color: var(--gray-mid); line-height: 1.7; font-weight: 300; }
+  .services-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+  .service-card {
+    background: var(--white); padding: 3rem 2.5rem;
+    position: relative; overflow: hidden;
+    transition: all 0.4s ease; cursor: default;
+    border: 1px solid var(--border);
+  }
+  .service-card::before {
+    content: ''; position: absolute;
+    top: 0; left: 0; right: 0; height: 2px;
+    background: var(--accent);
+    transform: scaleX(0); transform-origin: left;
+    transition: transform 0.4s ease;
+  }
+  .service-card:hover::before { transform: scaleX(1); }
+  .service-card:hover {
+    box-shadow: 0 12px 40px rgba(26,111,168,0.1);
+    transform: translateY(-4px);
+  }
+  .service-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem; font-weight: 700;
+    color: rgba(26,111,168,0.08); line-height: 1;
+    margin-bottom: 1.5rem;
+    transition: color 0.4s ease;
+  }
+  .service-card:hover .service-num { color: rgba(26,111,168,0.14); }
+  .service-icon {
+    width: 42px; height: 42px;
+    border: 1px solid rgba(26,111,168,0.25);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1.5rem; font-size: 1.1rem; color: var(--accent);
+    transition: all 0.4s ease;
+  }
+  .service-card:hover .service-icon {
+    background: var(--accent); color: var(--white);
+    border-color: var(--accent);
+  }
+  .service-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.45rem; font-weight: 600;
+    color: var(--navy); margin-bottom: 1rem; line-height: 1.25;
+  }
+  .service-desc {
+    font-size: 0.88rem; color: var(--gray-mid);
+    line-height: 1.8; font-weight: 300;
+  }
+  .service-tags { margin-top: 1.5rem; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+  .tag {
+    font-size: 0.67rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: var(--accent);
+    border: 1px solid rgba(26,111,168,0.25);
+    padding: 0.28rem 0.65rem;
+  }
+
+  /* ── ABOUT ── */
+  #about {
+    background: var(--white);
+    display: grid; grid-template-columns: 1fr 1.1fr;
+    gap: 6rem; align-items: center;
+  }
+  .about-bio {
+    font-size: 0.93rem; color: var(--gray-mid);
+    line-height: 1.85; font-weight: 300; margin-bottom: 1.4rem;
+  }
+  .about-highlights {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1rem; margin-top: 2.5rem;
+  }
+  .highlight-item {
+    padding: 1rem 1.2rem;
+    border-left: 2px solid var(--accent);
+    background: var(--accent-soft);
+  }
+  .highlight-item strong {
+    display: block; font-size: 0.72rem;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 0.3rem;
+  }
+  .highlight-item span { font-size: 0.86rem; color: var(--gray-dark); font-weight: 300; }
+  .about-card {
+    background: var(--bg-alt); padding: 2.5rem;
+    border: 1px solid var(--border); position: relative;
+  }
+  .about-card::before {
+    content: ''; position: absolute;
+    top: -1px; right: -1px;
+    width: 55px; height: 55px;
+    border-top: 2px solid var(--accent);
+    border-right: 2px solid var(--accent);
+  }
+  .expertise-list { list-style: none; }
+  .expertise-list li {
+    display: flex; align-items: center; gap: 1rem;
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.87rem; color: var(--gray-dark); font-weight: 300;
+  }
+  .expertise-list li::before {
+    content: '▸'; color: var(--accent);
+    font-size: 0.65rem; flex-shrink: 0;
+  }
+  .expertise-list li:last-child { border-bottom: none; }
+  .edu-section {
+    margin-top: 2rem; padding-top: 2rem;
+    border-top: 1px solid var(--border);
+  }
+  .edu-label {
+    font-size: 0.68rem; letter-spacing: 0.2em;
+    text-transform: uppercase; color: var(--accent); margin-bottom: 1rem;
+  }
+  .edu-item { margin-bottom: 0.8rem; }
+  .edu-item strong {
+    display: block; font-size: 0.84rem;
+    color: var(--navy); font-weight: 500;
+  }
+  .edu-item span { font-size: 0.76rem; color: var(--gray-light); }
+
+  /* ── TESTIMONIALS ── */
+  #testimonials {
+    background: var(--navy);
+    position: relative; overflow: hidden;
+  }
+  #testimonials .section-label { color: #6db8f0; }
+  #testimonials .section-label::before { background: #6db8f0; }
+  #testimonials h2 { color: #fff; }
+  #testimonials h2 em { color: #6db8f0; }
+  #testimonials::after {
+    content: '"';
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28rem; color: rgba(255,255,255,0.03);
+    position: absolute; top: -4rem; right: -1rem;
+    line-height: 1; pointer-events: none;
+  }
+  .testimonials-header { max-width: 480px; margin-bottom: 4rem; }
+  .testimonials-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+  }
+  .testimonial-card {
+    background: rgba(255,255,255,0.04);
+    padding: 2.5rem;
+    border: 1px solid rgba(255,255,255,0.08);
+    position: relative; transition: all 0.3s ease;
+  }
+  .testimonial-card:hover {
+    border-color: rgba(109,184,240,0.25);
+    transform: translateY(-4px);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    background: rgba(255,255,255,0.06);
+  }
+  .quote-mark {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem; color: #4a90c4;
+    line-height: 1; margin-bottom: 1rem; opacity: 0.7;
+  }
+  .testimonial-text {
+    font-size: 0.9rem; color: rgba(255,255,255,0.72);
+    line-height: 1.85; font-weight: 300; font-style: italic;
+    margin-bottom: 2rem;
+  }
+  .testimonial-author { display: flex; align-items: center; gap: 1rem; }
+  .author-avatar {
+    width: 42px; height: 42px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--steel), #4a90c4);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem; font-weight: 600; color: #fff; flex-shrink: 0;
+  }
+  .author-name { font-size: 0.86rem; color: #fff; font-weight: 500; }
+  .author-role { font-size: 0.73rem; color: rgba(255,255,255,0.45); margin-top: 0.15rem; }
+  .li-badge {
+    position: absolute; top: 1.8rem; right: 1.8rem;
+    font-size: 0.62rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: #6db8f0;
+    border: 1px solid rgba(109,184,240,0.3);
+    padding: 0.2rem 0.55rem;
+  }
+
+  /* ── CONTACT ── */
+  #contact {
+    background: var(--white);
+    display: grid; grid-template-columns: 1fr 1.4fr;
+    gap: 6rem; align-items: start;
+  }
+  .contact-left h2 { margin-bottom: 1.5rem; }
+  .contact-left p {
+    font-size: 0.93rem; color: var(--gray-mid);
+    line-height: 1.8; font-weight: 300; margin-bottom: 3rem;
+  }
+  .contact-detail {
+    display: flex; align-items: flex-start; gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .contact-icon {
+    width: 36px; height: 36px;
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--accent); font-size: 0.9rem; flex-shrink: 0;
+  }
+  .contact-detail-text strong {
+    display: block; font-size: 0.7rem;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--gray-light); margin-bottom: 0.2rem;
+  }
+  .contact-detail-text span { font-size: 0.88rem; color: var(--gray-dark); }
+  .form-group { margin-bottom: 1.4rem; }
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1.4rem; }
+  label {
+    display: block; font-size: 0.7rem;
+    letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--gray-light); margin-bottom: 0.55rem;
+  }
+  input, textarea {
+    width: 100%; background: var(--bg);
+    border: 1px solid var(--border); color: var(--gray-dark);
+    padding: 0.85rem 1.1rem;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem; font-weight: 300;
+    outline: none; transition: border-color 0.3s ease;
+  }
+  input:focus, textarea:focus { border-color: var(--accent); }
+  input::placeholder, textarea::placeholder { color: var(--gray-light); }
+  textarea { resize: vertical; min-height: 130px; }
+  .btn-submit {
+    width: 100%; padding: 1rem;
+    background: var(--accent); color: var(--white);
+    border: none; font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem; letter-spacing: 0.15em;
+    text-transform: uppercase; font-weight: 500;
+    cursor: pointer; transition: all 0.3s ease; margin-top: 0.4rem;
+  }
+  .btn-submit:hover {
+    background: var(--accent-dark); transform: translateY(-2px);
+    box-shadow: 0 8px 28px rgba(26,111,168,0.2);
+  }
+  #form-success {
+    display: none; margin-top: 1rem;
+    font-size: 0.84rem; color: var(--accent); text-align: center;
+  }
+  #form-error {
+    display: none; margin-top: 1rem;
+    font-size: 0.84rem; color: #c0392b; text-align: center;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--navy); padding: 2.2rem 4rem;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+  .footer-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; color: rgba(255,255,255,0.6);
+  }
+  .footer-copy { font-size: 0.76rem; color: rgba(255,255,255,0.25); }
+  .footer-links { display: flex; gap: 2rem; }
+  .footer-links a {
+    font-size: 0.73rem; letter-spacing: 0.1em;
+    text-transform: uppercase; color: rgba(255,255,255,0.4);
+    text-decoration: none; transition: color 0.2s;
+  }
+  .footer-links a:hover { color: #6db8f0; }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes rotate {
+    from { transform: translateY(-50%) rotate(0deg); }
+    to   { transform: translateY(-50%) rotate(360deg); }
+  }
+  .hero-content > * { animation: fadeUp 0.8s ease both; }
+  .hero-label        { animation-delay: 0.1s; }
+  .hero-content h1   { animation-delay: 0.2s; }
+  .hero-tagline      { animation-delay: 0.35s; }
+  .hero-cta          { animation-delay: 0.5s; }
+
+  .reveal {
+    opacity: 0; transform: translateY(22px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 960px) {
+    nav { padding: 1rem 2rem; }
+    section { padding: 4rem 2rem; }
+    #hero { padding: 6rem 2rem 4rem; }
+    .hero-deco, .hero-stats { display: none; }
+    .services-grid, .testimonials-grid { grid-template-columns: 1fr; }
+    #about, #contact { grid-template-columns: 1fr; gap: 3rem; }
+    .about-highlights, .form-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 1rem; text-align: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Jorge <span>E.</span> Rodríguez</div>
+  <ul class="nav-links">
+    <li><a href="#services">Services</a></li>
+    <li><a href="#about">About</a></li>
+    <li><a href="#testimonials">Testimonials</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-label">Technology Consultant · Caracas, Venezuela</div>
+    <h1>Engineering<br><em>Leadership</em><br>That Delivers.</h1>
+    <p class="hero-tagline">Technical leader and software development consultant. I bridge strategy, team coordination, and technical execution to help organisations build better products, faster.</p>
+    <div class="hero-cta">
+      <a href="#contact" class="btn-primary">Get in touch</a>
+      <a href="#services" class="btn-secondary">My Services</a>
+    </div>
+  </div>
+  <div class="hero-deco"></div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">25+</div><div class="stat-label">Years in Tech</div></div>
+    <div class="stat"><div class="stat-num">PhD</div><div class="stat-label">UPC Barcelona</div></div>
+    <div class="stat"><div class="stat-num">3</div><div class="stat-label">Languages</div></div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="services-header">
+    <div class="section-label">What I offer</div>
+    <h2>Three Ways I Can <em>Help Your Team</em></h2>
+    <p>Focused engagements designed to improve how your team thinks, builds, and ships software.</p>
+  </div>
+  <div class="services-grid">
+    <div class="service-card reveal">
+      <div class="service-num">01</div>
+      <div class="service-icon">◈</div>
+      <div class="service-title">Leadership of Software Development Teams</div>
+      <div class="service-desc">I step in as technical lead or engineering director to align your team around clear goals, healthy processes, and sustainable delivery rhythms. From onboarding structures to code review culture, I build the systems that let great engineers do their best work.</div>
+      <div class="service-tags">
+        <span class="tag">Tech Lead</span>
+        <span class="tag">Team Structure</span>
+        <span class="tag">ADRs / RFCs</span>
+      </div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-num">02</div>
+      <div class="service-icon">⟳</div>
+      <div class="service-title">Scrum Coach</div>
+      <div class="service-desc">I help teams adopt Agile not as a ceremony but as a mindset. I work alongside your engineers and product owners to tune sprint cadences, improve retrospectives, eliminate blockers, and create a culture of continuous improvement that outlasts my engagement.</div>
+      <div class="service-tags">
+        <span class="tag">Scrum</span>
+        <span class="tag">Agile</span>
+        <span class="tag">Retrospectives</span>
+      </div>
+    </div>
+    <div class="service-card reveal">
+      <div class="service-num">03</div>
+      <div class="service-icon">✦</div>
+      <div class="service-title">Spec-Driven Development</div>
+      <div class="service-desc">I guide teams through structured, specification-first approaches to software development, integrating AI-assisted workflows that reduce rework and increase predictability. Clear specs before code means fewer surprises, faster reviews, and higher-quality outcomes.</div>
+      <div class="service-tags">
+        <span class="tag">Spec-Driven</span>
+        <span class="tag">AI-Assisted Dev</span>
+        <span class="tag">Documentation</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="about-left reveal">
+    <div class="section-label">About me</div>
+    <h2>Strategy Meets <em>Technical Depth</em></h2>
+    <p class="about-bio">I am a technology consultant and technical software team leader with a career spanning academia, public sector, and private industry. With a PhD in Software from the Universitat Politècnica de Catalunya and over 25 years navigating complex environments, I bring a rare combination of deep technical knowledge and organisational leadership.</p>
+    <p class="about-bio">My work ranges from directing government-scale technology programmes — including national cybersecurity infrastructure and R&D policy — to leading agile product teams at early-stage startups. I specialise in structuring development processes, fostering team cohesion, and connecting technical vision with real-world delivery.</p>
+    <p class="about-bio">I believe good software is built by well-led teams with clear processes. My goal is always to leave teams more capable than I found them.</p>
+    <div class="about-highlights">
+      <div class="highlight-item"><strong>Location</strong><span>Caracas, Venezuela</span></div>
+      <div class="highlight-item"><strong>Availability</strong><span>Remote · Hybrid · On-site</span></div>
+      <div class="highlight-item"><strong>Languages</strong><span>ES · EN (B2) · CA</span></div>
+      <div class="highlight-item"><strong>Focus areas</strong><span>Blockchain · AI · Platform Dev</span></div>
+    </div>
+  </div>
+
+  <div class="about-right reveal">
+    <div class="about-card">
+      <div style="font-size:0.7rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--accent);margin-bottom:1.5rem;">Areas of Expertise</div>
+      <ul class="expertise-list">
+        <li>Technical leadership &amp; engineering direction</li>
+        <li>Agile leadership &amp; team coordination</li>
+        <li>Requirements analysis &amp; specification</li>
+        <li>AI-Assisted &amp; Spec-Driven Development</li>
+        <li>Technical product definition</li>
+        <li>Delivery flow improvement &amp; productivity</li>
+        <li>Technical documentation, ADRs, RFCs</li>
+        <li>Digital transformation consulting</li>
+        <li>Onboarding, code reviews, sprint design</li>
+        <li>Blockchain &amp; applied research</li>
+      </ul>
+      <div class="edu-section">
+        <div class="edu-label">Education</div>
+        <div class="edu-item">
+          <strong>PhD in Software – Computational Graphics</strong>
+          <span>Universitat Politècnica de Catalunya, Spain</span>
+        </div>
+        <div class="edu-item">
+          <strong>BSc in Computer Science</strong>
+          <span>Universidad Central de Venezuela</span>
+        </div>
+        <div class="edu-item">
+          <strong>Diploma in Blockchain</strong>
+          <span>Unimet Business School</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials">
+  <div class="testimonials-header">
+    <div class="section-label">Testimonials</div>
+    <h2>What Colleagues <em>Have Said</em></h2>
+  </div>
+  <div class="testimonials-grid">
+
+    <div class="testimonial-card reveal">
+      <div class="li-badge">LinkedIn</div>
+      <div class="quote-mark">&ldquo;</div>
+      <p class="testimonial-text">Tuve la oportunidad de trabajar con Jorge en la Universidad de Carabobo, dónde compartimos espacios como docentes universitarios y también trabajamos conjuntamente en distintos proyectos de investigación. Puedo dar fé de su compromiso a la hora de asumir nuevos retos así como de su capacidad para afrontar nuevos proyectos en distintas áreas del quehacer tecnológico. No dudaría en recomendarle como Manager de cualquier equipo de desarrollo porque siempre tiene mucho valor que aportar cuando se trata de nuevos retos.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">JG</div>
+        <div>
+          <div class="author-name">Johana Guerrero López</div>
+          <div class="author-role">Certified ScrumMaster® · Gerente de Producto, Integraciones API</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card reveal">
+      <div class="li-badge">LinkedIn</div>
+      <div class="quote-mark">&ldquo;</div>
+      <p class="testimonial-text">I had the opportunity of collaborating with Jorge for several years, during my PhD formation; interacting in the team where he also did important research. He always played an integral role in helping others to develop their skills to later reach better either the academy or the Industry. He positively influenced my career trajectory and helped me build confidence in this challenging field. I got the chance of knowing his work environment in Venezuela during an academy collaboration and realised how much he led by example in both, professional and personal aspects. If you're looking to work with someone who can help you reach your full potential, while showing commitment and strength; Jorge is probably that person.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">LC</div>
+        <div>
+          <div class="author-name">Lazaro Campoalegre Vera</div>
+          <div class="author-role">Product Engineering · AI &amp; Innovation</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card reveal">
+      <div class="li-badge">LinkedIn</div>
+      <div class="quote-mark">&ldquo;</div>
+      <p class="testimonial-text">Jorge ha demostrado ser un profesionista muy responsable y con alta experiencia. Su gran recorrido refleja la calidad de su trabajo.</p>
+      <div class="testimonial-author">
+        <div class="author-avatar">HV</div>
+        <div>
+          <div class="author-name">Harold Andres Vasquez Chavarria</div>
+          <div class="author-role">Agile Project Manager · Scrum &amp; Process Improvement</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="contact-left reveal">
+    <div class="section-label">Let's work together</div>
+    <h2>Start a <em>Conversation</em></h2>
+    <p>Whether you're looking for a technical lead, a Scrum coach, or a consultant to help modernise your development practices, I'd love to hear about your challenges.</p>
+    <div class="contact-detail">
+      <div class="contact-icon">✉</div>
+      <div class="contact-detail-text">
+        <strong>Email</strong>
+        <span>aker.rodriguez@gmail.com</span>
+      </div>
+    </div>
+    <div class="contact-detail">
+      <div class="contact-icon">🔗</div>
+      <div class="contact-detail-text">
+        <strong>LinkedIn</strong>
+        <span>linkedin.com/in/jorge-ernesto-rodriguez</span>
+      </div>
+    </div>
+    <div class="contact-detail">
+      <div class="contact-icon">◎</div>
+      <div class="contact-detail-text">
+        <strong>Availability</strong>
+        <span>Remote · Hybrid · On-site</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-form reveal">
+    <form id="contact-form" action="https://formspree.io/f/mpqnolwz" method="POST">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="name">Full Name</label>
+          <input type="text" id="name" name="name" placeholder="Your name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" placeholder="you@company.com" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="phone">Phone (optional)</label>
+        <input type="tel" id="phone" name="phone" placeholder="+1 000 000 0000">
+      </div>
+      <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" name="message" placeholder="Tell me about your project or challenge…" required></textarea>
+      </div>
+      <button type="submit" class="btn-submit" id="btn-submit">Send Message →</button>
+      <div id="form-success">✓ Message sent. I'll be in touch shortly.</div>
+      <div id="form-error">✕ Something went wrong. Please try again or email directly.</div>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-name">Jorge Ernesto Rodríguez</div>
+  <div class="footer-copy">© 2025 · All rights reserved</div>
+  <div class="footer-links">
+    <a href="mailto:aker.rodriguez@gmail.com">Email</a>
+    <a href="https://linkedin.com/in/jorge-ernesto-rodriguez" target="_blank">LinkedIn</a>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Stagger grid children
+  document.querySelectorAll('.services-grid, .testimonials-grid').forEach(grid => {
+    [...grid.children].forEach((child, i) => {
+      child.style.transitionDelay = `${i * 0.12}s`;
+    });
+  });
+
+  // Nav scroll effect
+  window.addEventListener('scroll', () => {
+    document.querySelector('nav').style.boxShadow =
+      window.scrollY > 40 ? '0 2px 20px rgba(0,0,0,0.08)' : 'none';
+  });
+
+  // Formspree async handler
+  document.getElementById('contact-form').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    const btn = document.getElementById('btn-submit');
+    const success = document.getElementById('form-success');
+    const error = document.getElementById('form-error');
+    success.style.display = 'none';
+    error.style.display = 'none';
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    try {
+      const res = await fetch(this.action, {
+        method: 'POST',
+        body: new FormData(this),
+        headers: { 'Accept': 'application/json' }
+      });
+      if (res.ok) {
+        success.style.display = 'block';
+        this.reset();
+        setTimeout(() => success.style.display = 'none', 6000);
+      } else {
+        error.style.display = 'block';
+      }
+    } catch {
+      error.style.display = 'block';
+    } finally {
+      btn.textContent = 'Send Message →';
+      btn.disabled = false;
+    }
+  });
+</script>
+</body>
+</html>
