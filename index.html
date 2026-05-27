@@ -130,26 +130,25 @@
     border-color: var(--accent); color: var(--accent);
     transform: translateY(-2px);
   }
-  .hero-deco {
+  .hero-photo-wrap {
     position: absolute; right: 5rem; top: 50%;
     transform: translateY(-50%);
-    width: 360px; height: 360px;
-    border: 1px solid rgba(26,111,168,0.15);
-    border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    animation: rotate 45s linear infinite;
+    width: 340px; height: 400px;
+    flex-shrink: 0;
   }
-  .hero-deco::before {
+  .hero-photo-wrap::before {
     content: ''; position: absolute;
-    width: 260px; height: 260px;
-    border: 1px solid rgba(26,111,168,0.09);
-    border-radius: 50%;
+    top: 18px; left: 18px; right: -18px; bottom: -18px;
+    border: 2px solid rgba(26,111,168,0.25);
+    z-index: 0;
   }
-  .hero-deco::after {
-    content: ''; position: absolute;
-    width: 160px; height: 160px;
-    border: 1px solid rgba(26,111,168,0.06);
-    border-radius: 50%;
+  .hero-photo-wrap img {
+    position: relative; z-index: 1;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+    filter: grayscale(15%);
   }
   .hero-stats {
     position: absolute; right: 4rem; bottom: 4rem;
@@ -494,7 +493,7 @@
     nav { padding: 1rem 2rem; }
     section { padding: 4rem 2rem; }
     #hero { padding: 6rem 2rem 4rem; }
-    .hero-deco, .hero-stats { display: none; }
+    .hero-photo-wrap, .hero-stats { display: none; }
     .services-grid, .testimonials-grid { grid-template-columns: 1fr; }
     #about, #contact { grid-template-columns: 1fr; gap: 3rem; }
     .about-highlights, .form-row { grid-template-columns: 1fr; }
@@ -528,7 +527,9 @@
       <a href="#services" class="btn-secondary">My Services</a>
     </div>
   </div>
-  <div class="hero-deco"></div>
+  <div class="hero-photo-wrap">
+    <img src="foto-perfil.png" alt="Jorge Ernesto Rodríguez">
+  </div>
   <div class="hero-stats">
     <div class="stat"><div class="stat-num">25+</div><div class="stat-label">Years in Tech</div></div>
     <div class="stat"><div class="stat-num">PhD</div><div class="stat-label">UPC Barcelona</div></div>
