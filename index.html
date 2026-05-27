@@ -416,6 +416,15 @@
     background: var(--accent-dark); transform: translateY(-2px);
     box-shadow: 0 8px 28px rgba(26,111,168,0.2);
   }
+  input.invalid, textarea.invalid {
+    border-color: #c0392b;
+    background: #fff5f5;
+  }
+  .field-error {
+    font-size: 0.72rem; color: #c0392b;
+    margin-top: 0.35rem; display: none;
+  }
+  .field-error.visible { display: block; }
   #form-success {
     display: none; margin-top: 1rem;
     font-size: 0.84rem; color: var(--accent); text-align: center;
@@ -733,10 +742,12 @@
         <div class="form-group">
           <label for="name">Full Name</label>
           <input type="text" id="name" name="name" placeholder="Your name" required>
+          <span class="field-error" id="err-name">Por favor ingresa tu nombre.</span>
         </div>
         <div class="form-group">
           <label for="email">Email</label>
           <input type="email" id="email" name="email" placeholder="you@company.com" required>
+          <span class="field-error" id="err-email">Por favor ingresa un email válido.</span>
         </div>
       </div>
       <div class="form-group">
@@ -746,9 +757,10 @@
       <div class="form-group">
         <label for="message">Message</label>
         <textarea id="message" name="message" placeholder="Tell me about your project or challenge…" required></textarea>
+        <span class="field-error" id="err-message">Por favor escribe tu mensaje.</span>
       </div>
       <button type="submit" class="btn-submit" id="btn-submit">Send Message →</button>
-      <div id="form-success">✓ Message sent. I'll be in touch shortly.</div>
+      <div id="form-success">✓ Tu mensaje fue enviado. Jorge te contactará en menos de 48 horas.</div>
       <div id="form-error">✕ Something went wrong. Please try again or email directly.</div>
     </form>
   </div>
@@ -807,15 +819,47 @@
       window.scrollY > 40 ? '0 2px 20px rgba(0,0,0,0.08)' : 'none';
   });
 
-  // Formspree async submit
+  // Form validation + Formspree async submit
   document.getElementById('contact-form').addEventListener('submit', async function(e) {
     e.preventDefault();
-    const btn     = document.getElementById('btn-submit');
-    const success = document.getElementById('form-success');
-    const error   = document.getElementById('form-error');
+
+    const nameEl    = document.getElementById('name');
+    const emailEl   = document.getElementById('email');
+    const messageEl = document.getElementById('message');
+    const btn       = document.getElementById('btn-submit');
+    const success   = document.getElementById('form-success');
+    const error     = document.getElementById('form-error');
+
+    // Clear previous validation state
+    [nameEl, emailEl, messageEl].forEach(el => {
+      el.classList.remove('invalid');
+    });
+    document.querySelectorAll('.field-error').forEach(el => el.classList.remove('visible'));
     success.style.display = 'none';
     error.style.display   = 'none';
-    btn.textContent = 'Sending…';
+
+    // Validate fields
+    let valid = true;
+    if (!nameEl.value.trim()) {
+      nameEl.classList.add('invalid');
+      document.getElementById('err-name').classList.add('visible');
+      valid = false;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailEl.value.trim() || !emailRegex.test(emailEl.value)) {
+      emailEl.classList.add('invalid');
+      document.getElementById('err-email').classList.add('visible');
+      valid = false;
+    }
+    if (!messageEl.value.trim()) {
+      messageEl.classList.add('invalid');
+      document.getElementById('err-message').classList.add('visible');
+      valid = false;
+    }
+    if (!valid) return;
+
+    // Submit to Formspree
+    btn.textContent = 'Enviando…';
     btn.disabled    = true;
     try {
       const res = await fetch(this.action, {
@@ -826,7 +870,7 @@
       if (res.ok) {
         success.style.display = 'block';
         this.reset();
-        setTimeout(() => success.style.display = 'none', 6000);
+        setTimeout(() => success.style.display = 'none', 8000);
       } else {
         error.style.display = 'block';
       }
@@ -836,6 +880,14 @@
       btn.textContent = 'Send Message →';
       btn.disabled    = false;
     }
+  });
+
+  // Clear validation on input
+  ['name','email','message'].forEach(id => {
+    document.getElementById(id).addEventListener('input', function() {
+      this.classList.remove('invalid');
+      document.getElementById('err-' + id).classList.remove('visible');
+    });
   });
 </script>
 </body>
